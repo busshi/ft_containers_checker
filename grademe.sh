@@ -43,16 +43,14 @@ cd ${PROJECT_DIR}
 
 run_test()
 {
-echo -e "${orange}[+] Testing time execution for $1${clear}:"
-echo -e "ft::$1:\c"
+echo -e "${orange}[+] Testing $1 time execution${clear}:"
+echo -e "ft::$1\c"
 time ./${FT} "$1" > ft.out
 
-echo "ft_time:$ft_time"
-
-echo -e "std::$1:\c"
+echo -e "\nstd::$1\c"
 time ./${STD} "$1"  > std.out
 
-echo -e "${orange}[+] Result for $1${clear}\033[30G\c"
+echo -e "${orange}[+] Checking diff ft::$1 vs std::$1${clear}\033[50G\c"
 
 dif=$(diff std.out ft.out)
 [[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "❌\n"; } || echo -e "✅\n"
