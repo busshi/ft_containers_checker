@@ -13,3 +13,8 @@ git clone https://github.com/busshi/ft_containers_checker.git && cd ft_container
 Usage:
 - ./grademe.sh [ vector | stack | map ] to test each container separately
 - ./grademe.sh to test everything...
+
+
+Note:
+- Edit the binary names in the script to run the script
+- This script prints time execution but does not check if it is slower or faster. Validation is made comparing output for ft_container and std_container...
