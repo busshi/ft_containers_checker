@@ -38,6 +38,7 @@ compil=$( make -C "$PROJECT_DIR" )
 
 ### TESTS
 ko=0
+log="${red}DIFF_LOG${clear}"
 
 cd ${PROJECT_DIR}
 
@@ -51,9 +52,10 @@ echo -e "\nstd::$1\c"
 time ./${STD} "$1"  > std.out
 
 echo -e "${orange}[+] Checking diff ft::$1 vs std::$1${clear}\033[50G\c"
+log+="\n\n${orange}[+]Checking diff ft::$1 vs std::$1${clear}\n"
 
 dif=$(diff std.out ft.out)
-[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "❌\n"; } || echo -e "✅\n"
+[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); log+="$dif"; echo -e "❌\n"; } || echo -e "✅\n"
 }
 
 
@@ -69,6 +71,7 @@ case "$1" in
 esac
 
 
+[[ $ko -ne 0 ]] && echo -e "$log"
 
 
 ### CLEANING
