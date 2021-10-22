@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 23:40:09 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 00:03:01 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ void	testingAssign( T vec, Type content ) {
 	vec.assign(10, content);
 	display(vec);
 
-	vec.assign(vec.begin() + 1, vec.begin() + 11);
-	display(vec);
+//	vec.assign(vec.begin() + 1, vec.begin() + 11);
+//	display(vec);
 }
 
 int		main( void ) {
 
-//	vector<std::string>	vs;
+	vector<std::string>	vs;
 	vector<std::string>	vs2(42);
 	vector<std::string>	vs3(42, "hello");
-//	vector<int>			vi;
+	vector<int>			vi;
 	vector<int>			vi2(42);
 	vector<int>			vi3(42, 42);
-//	vector<char>		vc;
+	vector<char>		vc;
 	vector<char>		vc2(42);
 	vector<char>		vc3(42, '*');
 
-//	testingAssign(vs, "aaaaaaaaaaaaaaaa");
+	testingAssign(vs, "aaaaaaaaaaaaaaaa");
 	testingAssign(vs2, "eeeeeeeeeeeeeeeeeeeeeeee");
 	testingAssign(vs3, "pppppppppp");
-//	testingAssign(vi, 42);
+	testingAssign(vi, 42);
 	testingAssign(vi2, 43);
 	testingAssign(vi3, 44);
-//	testingAssign(vc, '$');
+	testingAssign(vc, '$');
 	testingAssign(vc2, '&');
 	testingAssign(vc3, '?');
 
