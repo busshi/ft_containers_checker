@@ -46,7 +46,7 @@ mkdir -p "log/$1" "bin/$1"
 files=$(ls srcs/$1/*.cpp)
 
 for file in ${files}; do
-	filename=$(echo $file | rev | cut -d\/ -f1 | rev)
+	filename=$(echo $file | rev | cut -d\/ -f1 | cut -d. -f2 | rev)
 	name="$1/${filename}"
 	echo -e "${filename}\c"
 	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
