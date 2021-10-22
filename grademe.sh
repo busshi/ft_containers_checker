@@ -2,13 +2,9 @@
 
 ### VARIABLES
 
-TEST_DIR="$PWD"
 
+INC_DIR="$PWD/../includes"	# <===== EDIT PATH HERE IF ft_containers_checker IS NOT IN THE ROOT PATH OF YOUR PROJECT
 
-PROJECT_DIR="$PWD/../"		# <===== EDIT PATH HERE IF ft_containers_checker IS NOT IN THE ROOT PATH OF YOUR PROJECT
-
-FT="ft_containers"		# <===== EDIT BINARY VARIABLES HERE
-STD="std_containers"
 
 
 
@@ -25,42 +21,52 @@ purple="\033[0;35m"
 ### HEADER
 clear
 
-echo -e "${orange}_____________________________________________________________________________________________________\n"
-echo -e "_________________________________________ FT_CONTAINERS CHECKER _____________________________________\n"
-echo -e "_____________________________________________________________________________________________________\n\n${clear}"
+echo -e "${orange}___________________________________________________________________________________________\n"
+echo -e "__________________________________ FT_CONTAINERS CHECKER __________________________________\n"
+echo -e "___________________________________________________________________________________________\n${clear}"
 
 
 ### COMPILATION
+compil()
+{
+clang++ -Wall -Wextra -Werror -std=c++98 -I${INC_DIR} -DCONTAINER=$2 $1 -o $3 &> $4
+}
 
-compil=$( make -C "$PROJECT_DIR" )
-[ $? -ne 0 ] && { echo -e "[ ${red}KO${clear} ] Compilation Error"; exit 1; }
 
 
 ### TESTS
 ko=0
-log="${red}DIFF_LOG${clear}"
-
-cd ${PROJECT_DIR}
 
 run_test()
 {
-echo -e "${orange}[+] Testing $1 time execution${clear}:"
-echo -e "ft::$1\c"
-time ./${FT} "$1" > ft.out
+echo -e "\n\n${purple}[+] Testing $1${clear}\033[50GCompilation\033[70GDiff\n"
 
-echo -e "\nstd::$1\c"
-time ./${STD} "$1"  > std.out
+mkdir -p "log/$1" "bin/$1"
 
-echo -e "${orange}[+] Checking diff ft::$1 vs std::$1${clear}\033[50G\c"
-log+="\n\n${orange}[+]Checking diff ft::$1 vs std::$1${clear}\n"
+files=$(ls srcs/$1/*.cpp)
 
-dif=$(diff std.out ft.out)
-[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); log+="$dif"; echo -e "❌\n"; } || echo -e "✅\n"
+for file in ${files}; do
+	filename=$(echo $file | rev | cut -d\/ -f1 | rev)
+	name="$1/${filename}"
+	echo -e "${filename}\c"
+	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[50G✅\c"
+	
+	./bin/${name}.ft >> "log/${name}.ft" 2> /dev/null
+
+	compil "$file" std "bin/${name}.std" "log/${name}.std"
+	./bin/${name}.std >> "log/${name}.std" 2> /dev/null
+
+	diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[70G✅"
+
+	rm -rf "bin/${name}.ft" "bin/${name}.std"
+done
 }
 
 
 case "$1" in
-	"vector" | "stack" | "vector")
+	"vector" | "stack" | "map")
 		run_test "$1"
 		;;
 	*)
@@ -71,12 +77,10 @@ case "$1" in
 esac
 
 
-[[ $ko -ne 0 ]] && echo -e "$log"
-
 
 ### CLEANING
-rm -f ft.out std.out
-clean=$(make -C ${PROJECT_DIR} fclean)
+rm -rf bin
+[[ $ko -eq 0 ]] && rm -rf log
 
 
 exit $ko
