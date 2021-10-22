@@ -8,13 +8,15 @@ Git clone this in the root of your ft_containers project or edit the path variab
 
 Or just copy/paste this :
 ```bash
-git clone https://github.com/busshi/ft_containers_checker.git && cd ft_containers_checker && /bin/bash grademe.sh```
+git clone https://github.com/busshi/ft_containers_checker.git && cd ft_containers_checker && /bin/bash grademe.sh
+```
 
 
 Usage:
 ```bash
 ./grademe.sh [ vector | stack | map ] # to test each container separately
-./grademe.sh # to test everything```
+./grademe.sh # to test everything
+```
 
 
 Note:
