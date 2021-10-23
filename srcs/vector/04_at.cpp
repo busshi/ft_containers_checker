@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_at.cpp                                          :+:      :+:    :+:   */
+/*   04_at.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/23 19:49:26 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 23:28:05 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int		main( void ) {
 	run(cont.vi, INT, ai, sizeI);
 	run(cont.vi2, INT, ai, sizeI);
 	run(cont.vi3, INT, ai, sizeI);
+
+	vector<int> const	vconst(15, 15);
+	run(vconst, INT, ai, sizeC);
 
 	run(cont.vc, CHAR, ac, sizeC);
 	run(cont.vc2, CHAR, ac, sizeC);
