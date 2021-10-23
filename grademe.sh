@@ -137,7 +137,7 @@ esac
 
 ### CLEANING
 rm -rf bin
-[[ $ko -eq 0 ]] && rm -rf log
+#[[ $ko -eq 0 ]] && rm -rf log
 
 
 exit $ko
