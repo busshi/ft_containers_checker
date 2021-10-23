@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/23 00:03:01 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 03:19:31 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <unistd.h>
 
 using CONTAINER::vector;
 
@@ -36,11 +37,14 @@ void	testingAssign( T vec, Type content ) {
 	vec.assign(10, content);
 	display(vec);
 
-//	vec.assign(vec.begin() + 1, vec.begin() + 11);
-//	display(vec);
+	T	copy = vec;
+	copy.assign(vec.begin() + 1, vec.begin() + 5);
+	display(copy);
 }
 
 int		main( void ) {
+
+	alarm(3);
 
 	vector<std::string>	vs;
 	vector<std::string>	vs2(42);

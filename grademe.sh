@@ -33,8 +33,27 @@ clang++ -Wall -Wextra -Werror -std=c++98 -I${INC_DIR} -DCONTAINER=$2 $1 -o $3 &>
 }
 
 
-
 ### TESTS
+check_sig()
+{
+if [ $1 -eq 142 ] ; then
+	echo -e "\033[70G\033[31;1mT${clear}"
+	return 0
+elif [ $1 -eq 134 ] ; then
+	echo -e "\033[70G\033[31;1mA${clear}"
+	return 0
+elif [ $1 -eq 139 ] ; then
+	echo -e "\033[70G\033[31;1mS${clear}"
+	return 0
+elif [ $1 -eq 138 ] ; then
+	echo -e "\033[70G\033[31;1mB${clear}"
+	return 0
+else
+	return 1
+fi
+}
+
+
 ko=0
 
 run_test()
@@ -52,14 +71,17 @@ for file in ${files}; do
 	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
 	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[50G✅\c"
 	
-	./bin/${name}.ft >> "log/${name}.ft" 2> /dev/null
-
-	compil "$file" std "bin/${name}.std" "log/${name}.std"
-	./bin/${name}.std >> "log/${name}.std" 2> /dev/null
-
-	diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[70G✅"
-
+	run=$(./bin/${name}.ft >> "log/${name}.ft" 2> /dev/null)
+	sig=$?
+	if ! check_sig $sig; then
+		compil "$file" std "bin/${name}.std" "log/${name}.std"
+		run=$( ./bin/${name}.std >> "log/${name}.std" 2> /dev/null)
+		sig=$?
+		if ! check_sig $sig; then
+			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
+		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[70G✅"
+		fi
+	fi
 	rm -rf "bin/${name}.ft" "bin/${name}.std"
 done
 }
