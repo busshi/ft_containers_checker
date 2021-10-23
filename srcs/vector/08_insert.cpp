@@ -1,71 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   7_insert.cpp                                       :+:      :+:    :+:   */
+/*   08_insert.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 22:29:27 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:41:51 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
+#include "Cont.hpp"
 
-using CONTAINER::vector;
+template< class T, class Type >
+void	run( T v, std::string s, Type ins, bool B ) {
 
+	std::cout << "▶️  BEFORE INSERT:" << std::endl;
+	display(v, s);
 
-template< class T >
-void	displayContainer( T vec ) {
+	v.insert(v.begin(), ins);
+	std::cout << "▶️  AFTER INSERT AN ELEMENT:" << std::endl;
+	display(v, s);
 
-	typename T::iterator	it;
-	typename T::iterator	ite = vec.end();
+	if (B == false) {
+		std::cout << "---------------------" << std::endl;
+		return;
+	}
 
-	std::cout << "Testing vector.insert()" << std::endl;
-
-	for (it = vec.begin(); it != ite; it++)
-		std::cout << *it << std::endl;
+	v.insert(v.begin() + 2, 5, ins);
+	std::cout << "▶️  AFTER INSERT A RANGE OF ELEMENTS:" << std::endl;
+	display(v, s);
+	std::cout << "--------------------------" << std::endl;
 }
 
 int		main( void ) {
 
-	vector<std::string>	vs;
-	vector<int>			vi;
-	vector<char>		vc;
-	vector<std::string>	vs2(42);
-	vector<int>			vi2(42);
-	vector<char>		vc2(42);
-	vector<std::string>	vs3(42, "hello");
-	vector<int>			vi3(42, 42);
-	vector<char>		vc3(42, '*');
+	Cont	cont;
 
-	vs.insert(vs.begin(), "holà");
-	vs2.insert(vs2.begin() + 1, 10, "holàlà");
-	vs3.insert(vs3.begin() + 2, 41, "holà holà");
-	
-	for (size_t i = 0; i < 5; i++) {
+	alarm(3);
 
-		vi.insert(vi.begin(), i);
-		vi2.insert(vi2.begin() + 1, 10, i * 2);
-		vi3.insert(vi3.begin() + 2, 41, i * 3);
-	}
+	std::cout << "\033[33m[+] Testing vector.insert()...\033[0m" << std::endl << std::endl;
 
-	vc.insert(vc.begin(), '@');
-	vc2.insert(vc2.begin() + 1, 10, '%');
-	vc3.insert(vc3.begin() + 2, 41, '=');
+	run(cont.vs, STR, "attempt to insert elements in an empty vector...", false);
+	run(cont.vs2, STR, "attempt to insert elements...", true);
+	run(cont.vs3, STR, "elements inserted!!!", true);
 
-	displayContainer(vs);
-	displayContainer(vs2);
-	displayContainer(vs3);
-	displayContainer(vi);
-	displayContainer(vi2);
-	displayContainer(vi3);
-	displayContainer(vc);
-	displayContainer(vc2);
-	displayContainer(vc3);
+	run(cont.vi, INT, 666, false);
+	run(cont.vi2, INT, 897689, true);
+	run(cont.vi3, INT, 98729809280, true);
+
+	run(cont.vc, CHAR, '!', false);
+	run(cont.vc2, CHAR, '@', true);
+	run(cont.vc3, CHAR, '$', true);
 
 	return 0;
 }

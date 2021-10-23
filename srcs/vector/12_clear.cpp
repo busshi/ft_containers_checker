@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01_ctor.cpp                                        :+:      :+:    :+:   */
+/*   12_clear.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/23 19:50:41 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:46:03 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,15 @@
 template< class T >
 void	run( T vec, std::string s ) {
 
+	std::cout << "🔽 BEFORE CLEAR:" << std::endl;
 	display(vec, s);
+	checkSize(vec, s);
+
+	std::cout << "🔽 AFTER CLEAR:" << std::endl;
+	vec.clear();
+	display(vec, s);
+	checkSize(vec, s);
+
 	std::cout << "-------------------------" << std::endl;
 }
 
@@ -25,7 +33,7 @@ int		main( void ) {
 
 	alarm(3);
 
-	std::cout << "\033[33m[+] Testing constructors...\033[0m" << std::endl << std::endl;
+	std::cout << "\033[33m[+] Testing vector.clear()...\033[0m" << std::endl << std::endl;
 
 	run(cont.vs, STR);
 	run(cont.vs2, STR);
@@ -35,9 +43,9 @@ int		main( void ) {
 	run(cont.vi2, INT);
 	run(cont.vi3, INT);
 
-	run(cont.vc, CHAR);
-	run(cont.vc2, CHAR);
-	run(cont.vc3, CHAR);
+	run(cont.vi, INT);
+	run(cont.vi2, INT);
+	run(cont.vi3, INT);
 
 	return 0;
 }

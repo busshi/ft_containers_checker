@@ -6,75 +6,54 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 23:14:24 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:40:34 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
-
-using CONTAINER::vector;
-
-template< class T >
-void	display( T vec )  {
-
-	typename T::iterator	it, ite = vec.end();
-
-	for (it = vec.begin(); it != ite; it++)
-		std::cout << *it << std::endl;
-}
-
-template< class T >
-void	testingSize( T vec ) {
-
-	std::cout << "\n\nTesting size, capacity, max_size\nsize: " << vec.size() << std::endl;
-	std::cout << "max_size: " << vec.max_size() << std::endl;
-	std::cout << "capacity: " << (vec.capacity() >= vec.size() ? "[ OK ]" : "[ KO ]") << std::endl;
-	std::cout << std::boolalpha << "is empty ? " << vec.empty() << std::endl;
-}
+#include "Cont.hpp"
 
 template< class T, class Type >
-void	testingResize( T vec, Type content ) {
+void	run( T vec, std::string s, Type content ) {
 
 	size_t	size = vec.size();
 
-	display(vec);
-	testingSize(vec);
+	std::cout << "▶️  BEFORE resize:" << std::endl;
+	display(vec, s);
+	checkSize(vec, s);
 
+	std::cout << "▶️  AFTER resize with content (size *= 2):" << std::endl;
 	vec.resize(size * 2, content);
-	display(vec);
-	testingSize(vec);
+	display(vec, s);
+	checkSize(vec, s);
 
+	std::cout << "▶️  AFTER resize to 0:" << std::endl;
 	vec.resize(0);
-	testingSize(vec);
+	display(vec, s);
+	checkSize(vec, s);
 
-	vec.resize(10000);
-	testingSize(vec);
+	std::cout << "▶️  AFTER resize with content to size = 10000" << std::endl;
+	vec.resize(10000, content);
+	display(vec, s);
+	checkSize(vec, s);
+
+	std::cout << "-------------------------" << std::endl;
 }
 
 int		main( void ) {
 
-	vector<std::string>	vs;
-	vector<std::string>	vs2(14);
-	vector<std::string>	vs3(21, "hello holà");
-	vector<int>			vi;
-	vector<int>			vi2(14);
-	vector<int>			vi3(21, 42);
-//	vector<char>		vc;
-//	vector<char>		vc2(14);
-//	vector<char>		vc3(21, '*');
+	Cont	cont;
 
-	testingResize(vs, "aaaaaaaaaaaaaaa");
-	testingResize(vs2, "bbbbbbbbbbbbbbbbbbbbbbbbbb");
-	testingResize(vs3, "ccccccccccc");
-	testingResize(vi, 2);
-	testingResize(vi2, 3);
-	testingResize(vi3, 4);
-//	testingResize(vc, 'r');
-//	testingResize(vc2, 't');
-//	testingResize(vc3, 'y');
+	alarm(3);
+
+	std::cout << "\033[33m[+] Testing vector.resize()...\033[0m" << std::endl << std::endl;
+
+	run(cont.vs, STR, "unknown element");
+	run(cont.vs2, STR, ".........elements added..........");
+	run(cont.vs3, STR, "new element");
+
+	run(cont.vi, INT, 666);
+	run(cont.vi2, INT, 333);
+	run(cont.vi3, INT, 999);
 
 	return 0;
 }

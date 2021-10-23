@@ -1,54 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4_operator_bracket.cpp                             :+:      :+:    :+:   */
+/*   04_operator_bracket.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 22:27:20 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 19:49:04 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
+#include "Cont.hpp"
 
-using CONTAINER::vector;
+template< class T, class A >
+void	run( T vec, std::string s, A array, size_t size ) {
 
-template< class T >
-void	testingOperatorBracket( T vec ) {
+	T	v = fillVec(vec, array, size);
 
-	size_t	size = vec.size();
+	std::cout << "vector<" << s << "> Content: ";
 
-	std::cout << "Testing vector.size()" << std::endl;
+	for (size_t i = 0; i < v.size(); i++)
+		std::cout << "[" << i << " = " << v[i] << "] ";
 
-	for (size_t i = 0; i < size; i++)
-		std::cout << vec[i] << std::endl;
+	std::cout << "---------------------------" << std::endl << std::endl;
 }
 
 int		main( void ) {
 
-	vector<std::string>	vs;
-	vector<std::string>	vs2(42);
-	vector<std::string>	vs3(42, "hello");
-	vector<int>			vi;
-	vector<int>			vi2(42);
-	vector<int>			vi3(42, 42);
-	vector<char>		vc;
-	vector<char>		vc2(42);
-	vector<char>		vc3(42, '*');
+	Cont	cont;
 
-	testingOperatorBracket(vs);
-	testingOperatorBracket(vs2);
-	testingOperatorBracket(vs3);
-	testingOperatorBracket(vi);
-	testingOperatorBracket(vi2);
-	testingOperatorBracket(vi3);
-	testingOperatorBracket(vc);
-	testingOperatorBracket(vc2);
-	testingOperatorBracket(vc3);
+	alarm(3);
+
+	std::cout << "\033[33m[+] Testing vector[]...\033[0m" << std::endl << std::endl;
+
+	run(cont.vs, STR, as, sizeS);
+	run(cont.vs2, STR, as, sizeS);
+	run(cont.vs3, STR, as, sizeS);
+
+	run(cont.vi, INT, ai, sizeI);
+	run(cont.vi2, INT, ai, sizeI);
+	run(cont.vi3, INT, ai, sizeI);
+
+	run(cont.vc, CHAR, ac, sizeC);
+	run(cont.vc2, CHAR, ac, sizeC);
+	run(cont.vc3, CHAR, ac, sizeC);
 
 	return 0;
 }

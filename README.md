@@ -20,8 +20,14 @@ Usage:
 ```bash
 ./grademe.sh [ vector | stack | map ] # to test each container separately
 ./grademe.sh # to test everything
+./grademe.sh one [path_to_test_file] # to make only one test
 ```
 
+Example:
+```bash:
+./grademe.sh one srcs/vector/01_ctor.cpp # will test only vector constructors
+```
 
 Note:
 - This script does not check if it is slower or faster than STL. Validation is made comparing output for ft_container and std_container...
+- Edit header names in case it is not "vector.hpp" / "stack.hpp" / "map.hpp" in the file located in srcs/$CONTAINER/Cont.hpp

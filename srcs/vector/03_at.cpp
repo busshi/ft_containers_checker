@@ -1,60 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_at.cpp                                           :+:      :+:    :+:   */
+/*   03_at.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 22:27:35 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 19:49:26 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
+#include "Cont.hpp"
 
-using CONTAINER::vector;
+template< class T, class A >
+void	run( T vec, std::string s, A array, size_t size ) {
 
-template< class T >
-void	testingAt( T vec ) {
+	T	v = fillVec(vec, array, size);
 
-	std::cout << "Testing vector.at()" << std::endl;
+	std::cout << "vector<" << s << "> Content: ";
 
-	for (size_t i = 0; i < vec.size(); i++)
-		std::cout << vec.at(i) << std::endl;
+	for (size_t i = 0; i < v.size(); i++)
+		std::cout << "[" << i << " = " << v.at(i) << "] ";
+	std::cout << std::endl;
+
 	try {
 
-		std::cout << vec.at(vec.size()) << std::endl;
+		std::cout << v.at(v.size()) << std::endl;
 	}
 	catch (std::exception & e) {
 		
-		std::cout << "Exception catched at index [" << vec.size() << "]" << std::endl;
+		std::cout << RED << "Exception catched at index [" << v.size() << "]" << CLR << std::endl << std::endl;
 	}
+
+	std::cout << "------------------------" << std::endl;
 }
 
 int		main( void ) {
 
-	vector<std::string>	vs;
-	vector<std::string>	vs2(42);
-	vector<std::string>	vs3(42, "hello");
-	vector<int>			vi;
-	vector<int>			vi2(42);
-	vector<int>			vi3(42, 42);
-	vector<char>		vc;
-	vector<char>		vc2(42);
-	vector<char>		vc3(42, '*');
+	Cont	cont;
 
-	testingAt(vs);
-	testingAt(vs2);
-	testingAt(vs3);
-	testingAt(vi);
-	testingAt(vi2);
-	testingAt(vi3);
-	testingAt(vc);
-	testingAt(vc2);
-	testingAt(vc3);
+	alarm(3);
+
+	std::cout << "\033[33m[+] Testing vector.at()...\033[0m" << std::endl << std::endl;
+
+	run(cont.vs, STR, as, sizeS);
+	run(cont.vs2, STR, as, sizeS);
+	run(cont.vs3, STR, as, sizeS);
+
+	run(cont.vi, INT, ai, sizeI);
+	run(cont.vi2, INT, ai, sizeI);
+	run(cont.vi3, INT, ai, sizeI);
+
+	run(cont.vc, CHAR, ac, sizeC);
+	run(cont.vc2, CHAR, ac, sizeC);
+	run(cont.vc3, CHAR, ac, sizeC);
 
 	return 0;
 }

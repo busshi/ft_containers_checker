@@ -1,70 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   6_front_back.cpp                                   :+:      :+:    :+:   */
+/*   07_front_back.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 22:29:07 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:42:11 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
-
-using CONTAINER::vector;
+#include "Cont.hpp"
 
 template< class T >
 void	testingFrontBack( T vec ) {
 
-	std::cout << "Testing vector.front() and vector.back()" << std::endl;
+	std::cout << "front => [" << vec.front() << "]" << std::endl;
+	std::cout << "back => [" << vec.back() << "]" << std::endl;
+}
 
-	std::cout << vec.front() << std::endl;
-	std::cout << vec.back() << std::endl;
+template< class T, class A >
+void	run( T v, std::string s, A array, size_t size ) {
+
+	std::cout << "▶️  BEFORE POP:" << std::endl;
+	display(v, s);
+	testingFrontBack(v);
+
+	for (size_t i = 0; i < 5; i++)
+		v.pop_back();
+
+	std::cout << "▶️  AFTER POP:" << std::endl;
+	display(v, s);
+	testingFrontBack(v);
+
+	T	vec = fillVec(v, array, size);
+
+	std::cout << "▶️  AFTER PUSH:" << std::endl;
+	display(vec, s);
+	testingFrontBack(vec);
+
+	std::cout << "--------------------------" << std::endl;
 }
 
 int		main( void ) {
 
-	vector<std::string>	vs(42, "hello");
-	vector<int>			vi(42, 42);
-	vector<char>		vc(42, '*');
+	Cont	cont;
 
-	testingFrontBack(vs);
-	testingFrontBack(vi);
-	testingFrontBack(vi);
+	alarm(3);
 
-	for (size_t i = 0; i < 20; i++) {
+	std::cout << "\033[33m[+] Testing vector.front() and vector.back()...\033[0m" << std::endl << std::endl;
 
-		if (i % 2)
-			testingFrontBack(vs);
-		vs.push_back("holà");
-		if (i % 2 == 0)
-			testingFrontBack(vs);
-		vs.push_back("good bye");
-	}
+	run(cont.vs2, STR, as, sizeS);
+	run(cont.vs3, STR, as, sizeS);
 
-	for (size_t i = 0; i < 20; i++) {
+	run(cont.vi2, INT, ai, sizeI);
+	run(cont.vi3, INT, ai, sizeI);
 
-		if (i % 2)
-			testingFrontBack(vi);
-		vi.push_back(i);
-		if (i % 2 == 0)
-			testingFrontBack(vi);
-		vi.push_back(i * 2);
-	}
-
-	for (size_t i = 0; i < 20; i++) {
-
-		if (i % 2)
-			testingFrontBack(vc);
-		vc.push_back('@');
-		if (i % 2 == 0)
-			testingFrontBack(vc);
-		vc.push_back('!');
-	}
+	run(cont.vc2, CHAR, ac, sizeC);
+	run(cont.vc3, CHAR, ac, sizeC);
 
 	return 0;
 }

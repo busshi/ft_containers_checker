@@ -8,6 +8,7 @@ INC_DIR="$PWD/../includes"	# <===== EDIT PATH HERE IF ft_containers_checker IS N
 
 
 
+
 ### COLORS
 
 red="\033[0;31m"
@@ -86,10 +87,44 @@ for file in ${files}; do
 done
 }
 
+run_one()
+{
+vec=$(echo "$1" | cut -d\/ -f2)
+mkdir -p "log/${vec}" "bin/${vec}"
+
+file=$1
+
+name=$(echo $file | rev | cut -d\/ -f1 | cut -d. -f2 | rev)
+echo -e "\n\n${purple}[+] Testing ${vec}/${name}${clear}\033[50GCompilation\033[70GDiff\n"
+echo -e "${name}\c"
+
+name="${vec}/${name}"
+compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
+[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[50G✅\c"
+	
+run=$(./bin/${name}.ft >> "log/${name}.ft" 2> /dev/null)
+sig=$?
+if ! check_sig $sig; then
+	compil "$file" std "bin/${name}.std" "log/${name}.std"
+	run=$( ./bin/${name}.std >> "log/${name}.std" 2> /dev/null)
+	sig=$?
+	if ! check_sig $sig; then
+		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[70G✅"
+	fi
+fi
+rm -rf "bin/${name}.ft" "bin/${name}.std"
+}
+
+
 
 case "$1" in
 	"vector" | "stack" | "map")
 		run_test "$1"
+		;;
+	"one")
+		[ -z "$2" ] && echo "Usage: ./grademe.sh one [path_to_test_file]" && exit 1
+		run_one "$2"
 		;;
 	*)
 		for test in vector stack map; do

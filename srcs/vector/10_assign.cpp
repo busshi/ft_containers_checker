@@ -6,65 +6,47 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/23 03:19:31 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:41:09 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
-#include <unistd.h>
-
-using CONTAINER::vector;
-
-template< class T >
-void	display( T vec ) {
-
-	typename T::iterator		it, ite = vec.end();
-
-	std::cout << "Testing vector.assign()" << std::endl;
-
-	for (it = vec.begin(); it != ite; it++)
-		std::cout << *it << std::endl;
-}
+#include "Cont.hpp"
 
 template< class T, class Type >
-void	testingAssign( T vec, Type content ) {
+void	run( T vec, std::string s, Type content ) {
 
-	display(vec);
+	std::cout << "▶️  BEFORE ASSIGN" << std::endl;
+	display(vec, s);
 
-	vec.assign(10, content);
-	display(vec);
+	std::cout << "▶️  AFTER ASSIGN 8 ELEMENTS" << std::endl;
+	vec.assign(8, content);
+	display(vec, s);
 
 	T	copy = vec;
+	std::cout << "▶️  AFTER ASSIGN A RANGE OF ELEMENTS (4 elements)" << std::endl;
 	copy.assign(vec.begin() + 1, vec.begin() + 5);
-	display(copy);
+	display(copy, s);
+
+	std::cout << "---------------------------" << std::endl;
 }
 
 int		main( void ) {
 
+	Cont	cont;
+
 	alarm(3);
 
-	vector<std::string>	vs;
-	vector<std::string>	vs2(42);
-	vector<std::string>	vs3(42, "hello");
-	vector<int>			vi;
-	vector<int>			vi2(42);
-	vector<int>			vi3(42, 42);
-	vector<char>		vc;
-	vector<char>		vc2(42);
-	vector<char>		vc3(42, '*');
+	std::cout << "\033[33m[+] Testing vector.assign()...\033[0m" << std::endl << std::endl;
 
-	testingAssign(vs, "aaaaaaaaaaaaaaaa");
-	testingAssign(vs2, "eeeeeeeeeeeeeeeeeeeeeeee");
-	testingAssign(vs3, "pppppppppp");
-	testingAssign(vi, 42);
-	testingAssign(vi2, 43);
-	testingAssign(vi3, 44);
-	testingAssign(vc, '$');
-	testingAssign(vc2, '&');
-	testingAssign(vc3, '?');
+	run(cont.vs, STR, "aaaaaaaaaaaaaaaa");
+	run(cont.vs2, STR, "eeeeeeeeeeeeeeeeeeeeeeee");
+	run(cont.vs3, STR, "pppppppppp");
+	run(cont.vi, INT, 42);
+	run(cont.vi2, INT, 43);
+	run(cont.vi3, INT, 44);
+	run(cont.vc, CHAR, '$');
+	run(cont.vc2, CHAR, '&');
+	run(cont.vc3, CHAR, '?');
 
 	return 0;
 }
