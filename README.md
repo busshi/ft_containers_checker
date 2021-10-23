@@ -1,10 +1,10 @@
 # FT_CONTAINERS_CHECKER...
 
-### Reacreating containers: Vector, Stack, Map
-
 <p align="center">
 	<img src="./assets/ft_containers_checker.gif" >
 </p>
+
+### Reacreating containers: Vector, Stack, Map
 
 A C++ project for 42 school...
 
