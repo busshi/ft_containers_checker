@@ -2,6 +2,10 @@
 
 ### Reacreating containers: Vector, Stack, Map
 
+<p align="center">
+	<img src="./assets/ft_containers_checker.gif" >
+</p>
+
 A C++ project for 42 school...
 
 Git clone this in the root of your ft_containers project or edit the path variable in the script...
