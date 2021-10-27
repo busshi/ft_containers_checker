@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 17:25:12 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/23 20:56:01 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 14:17:49 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "vector.hpp"
 
-# include <string>
 # include <vector>
+# include <string>
 # include <iostream>
 # include <unistd.h>
 

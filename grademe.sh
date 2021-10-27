@@ -72,11 +72,11 @@ for file in ${files}; do
 	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
 	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[50G✅\c"
 	
-	run=$(./bin/${name}.ft >> "log/${name}.ft" 2> /dev/null)
+	run=$(./bin/${name}.ft >> "log/${name}.ft" 2> "log/${name}.ft")
 	sig=$?
 	if ! check_sig $sig; then
 		compil "$file" std "bin/${name}.std" "log/${name}.std"
-		run=$( ./bin/${name}.std >> "log/${name}.std" 2> /dev/null)
+		run=$( ./bin/${name}.std >> "log/${name}.std" 2> "log/${name}.std")
 		sig=$?
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
@@ -137,7 +137,7 @@ esac
 
 ### CLEANING
 rm -rf bin
-#[[ $ko -eq 0 ]] && rm -rf log
+[[ $ko -eq 0 ]] && rm -rf log
 
 
 exit $ko
