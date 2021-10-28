@@ -87,7 +87,7 @@ for file in ${files}; do
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
 		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[60G✅\c"
-		[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak
+		[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 		fi
 	fi
 	rm -rf "bin/${name}.ft" "bin/${name}.std"
