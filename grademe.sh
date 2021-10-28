@@ -78,7 +78,7 @@ for file in ${files}; do
 	name="$1/${filename}"
 	echo -e "${filename}\c"
 	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
-	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[40G✅\c"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[40G❌\c"; } || echo -e "\033[40G✅\c"
 	
 	run=$(./bin/${name}.ft >> "log/${name}.ft" 2> "log/${name}.ft")
 	sig=$?
@@ -88,7 +88,7 @@ for file in ${files}; do
 		sig=$?
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[60G✅\c"
+		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌"; } || echo -e "\033[60G✅\c"
 		[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 		fi
 	fi
@@ -111,7 +111,7 @@ echo -e "${name}\c"
 
 name="${vec}/${name}"
 compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
-[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[50G❌\c"; } || echo -e "\033[40G✅\c"
+[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[40G❌\c"; } || echo -e "\033[40G✅\c"
 	
 run=$(./bin/${name}.ft >> "log/${name}.ft" 2> "log/${name}.ft")
 sig=$?
@@ -121,7 +121,7 @@ if ! check_sig $sig; then
 	sig=$?
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[60G✅\c"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌"; } || echo -e "\033[60G✅\c"
 	[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 	fi
 fi
