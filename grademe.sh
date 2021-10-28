@@ -56,7 +56,8 @@ fi
 
 test_leak()
 {
-echo -e "\033[75Gvalgrind"
+free=$(valgrind "$1" | grep "All heap blocks were freed -- no leaks are possible")
+[ "$free" != "" ] && echo -e "\033[75G✅" || echo -e "\033[75G❌"
 }
 
 ko=0
