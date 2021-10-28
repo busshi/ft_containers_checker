@@ -25,9 +25,10 @@ Usage:
 
 Example:
 ```bash:
-./grademe.sh one srcs/vector/01_ctor.cpp # will test only vector constructors
+./grademe.sh one srcs/vector/01_ctor.cpp --no-leak # will test only vector constructors and skip leak test
 ```
 
 Note:
 - This script does not check if it is slower or faster than STL. Validation is made comparing output for ft_container and std_container...
 - Edit header names in case it is not "vector.hpp" / "stack.hpp" / "map.hpp" in the file located in srcs/$CONTAINER/Cont.hpp
+- Add "--no-leak" option after arguments to skip leak tests
