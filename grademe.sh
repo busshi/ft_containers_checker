@@ -88,7 +88,7 @@ for file in ${files}; do
 		sig=$?
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌"; } || echo -e "\033[60G✅\c"
+		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
 		[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 		fi
 	fi
@@ -121,7 +121,7 @@ if ! check_sig $sig; then
 	sig=$?
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌"; } || echo -e "\033[60G✅\c"
+	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
 	[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 	fi
 fi
