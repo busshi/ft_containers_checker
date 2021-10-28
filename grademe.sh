@@ -62,6 +62,8 @@ free=$(cat "log/${name}.leak" | grep "All heap blocks were freed -- no leaks are
 }
 
 ko=0
+no_leak=0
+
 
 run_test()
 {
@@ -89,7 +91,11 @@ for file in ${files}; do
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
 			[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
-			[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+			if [[ $no_leak -eq 0 ]]; then
+				[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+			else
+				echo -e "\033[75G\033[3mNot tested${clear}"
+			fi
 		else
 			echo -e "\033[75G\033[3mNot tested${clear}"
 		fi
@@ -126,7 +132,11 @@ if ! check_sig $sig; then
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
 		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
-		[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+		if [[ $no_leak -eq 0 ]]; then
+			[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+		else
+			echo -e "\033[75G\033[3mNot tested${clear}"
+		fi
 	else
 		echo -e "\033[75G\033[3mNot tested${clear}"
 	fi
@@ -137,14 +147,19 @@ rm -rf "bin/${name}.ft" "bin/${name}.std"
 }
 
 
+[ "$1" = "--no-leak" -o "$2" = "--no-leak" -o "$3" = "--no-leak" ] && no_leak=1
+
 
 case "$1" in
 	"vector" | "stack" | "map")
 		run_test "$1"
 		;;
 	"one")
-		[ -z "$2" ] && echo "Usage: ./grademe.sh one [path_to_test_file]" && exit 1
+		[ -z "$2" ] && { echo "Usage: ./grademe.sh one [path_to_test_file]"; exit 1; }
 		run_one "$2"
+		;;
+	"help")
+		echo "Usage: ./grademe.sh [vector|stack|map <optionnal>] [--no-leak <optionnal>]"; exit 1;
 		;;
 	*)
 		for test in vector stack map; do
