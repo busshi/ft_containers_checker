@@ -56,8 +56,9 @@ fi
 
 test_leak()
 {
-free=$(valgrind "$1" | grep "All heap blocks were freed -- no leaks are possible")
-[ "$free" != "" ] && echo -e "\033[75G✅" || echo -e "\033[75G❌"
+valgrind "$1" &> ".leak"
+free=$(cat "log/${name}.leak" | grep "All heap blocks were freed -- no leaks are possible")
+[ "$free" != "" ] && { echo -e "\033[75G✅"; rm -f "log/${name}.leak"; } || { echo -e "\033[75G❌"; ko=$(( $ko + 1 )); }
 }
 
 ko=0
