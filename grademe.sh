@@ -88,9 +88,13 @@ for file in ${files}; do
 		sig=$?
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
-		[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
+			[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
+			[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+		else
+			echo -e "\033[75G\033[3mNot tested${clear}"
 		fi
+	else
+		echo -e "\033[75G\033[3mNot tested${clear}"
 	fi
 	rm -rf "bin/${name}.ft" "bin/${name}.std"
 done
@@ -121,9 +125,13 @@ if ! check_sig $sig; then
 	sig=$?
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
-	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
-	[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
+		[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[60G❌\c"; } || echo -e "\033[60G✅\c"
+		[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak "./bin/${name}.ft"
+	else
+		echo -e "\033[75G\033[3mNot tested${clear}"
 	fi
+else
+	echo -e "\033[75G\033[3mNot tested${clear}"
 fi
 rm -rf "bin/${name}.ft" "bin/${name}.std"
 }
