@@ -69,8 +69,9 @@ echo -e "\n\n${purple}[+] Testing $1\033[40GCompilation\033[60GDiff\033[75GLeak$
 
 mkdir -p "log/$1" "bin/$1"
 
-files=$(ls srcs/$1/*.cpp)
 check_leak=$(whereis valgrind)
+
+files=$(ls srcs/$1/*.cpp)
 
 for file in ${files}; do
 	filename=$(echo $file | rev | cut -d\/ -f1 | cut -d. -f2 | rev)
@@ -100,6 +101,8 @@ run_one()
 vec=$(echo "$1" | cut -d\/ -f2)
 mkdir -p "log/${vec}" "bin/${vec}"
 
+check_leak=$(whereis valgrind)
+
 file=$1
 
 name=$(echo $file | rev | cut -d\/ -f1 | cut -d. -f2 | rev)
@@ -119,7 +122,7 @@ if ! check_sig $sig; then
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
 	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[70G❌"; } || echo -e "\033[60G✅\c"
-	[ "$check_leak" = "" ] && echo -e "\033[75G\033[3mvalgrind missing${clear}" || test_leak
+	[ "$check_leak" = "" ] && echo -e "\033[75Gvalgrind missing" || test_leak "./bin/${name}.ft"
 	fi
 fi
 rm -rf "bin/${name}.ft" "bin/${name}.std"
