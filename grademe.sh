@@ -38,16 +38,16 @@ clang++ -Wall -Wextra -Werror -std=c++98 -I${INC_DIR} -DCONTAINER=$2 $1 -o $3 &>
 check_sig()
 {
 if [ $1 -eq 142 ] ; then
-	echo -e "\033[70G\033[31;1mT${clear}"
+	echo -e "\033[60G\033[31;1mT${clear}"
 	return 0
 elif [ $1 -eq 134 ] ; then
-	echo -e "\033[70G\033[31;1mA${clear}"
+	echo -e "\033[60G\033[31;1mA${clear}"
 	return 0
 elif [ $1 -eq 139 ] ; then
-	echo -e "\033[70G\033[31;1mS${clear}"
+	echo -e "\033[60G\033[31;1mS${clear}"
 	return 0
 elif [ $1 -eq 138 ] ; then
-	echo -e "\033[70G\033[31;1mB${clear}"
+	echo -e "\033[60G\033[31;1mB${clear}"
 	return 0
 else
 	return 1
