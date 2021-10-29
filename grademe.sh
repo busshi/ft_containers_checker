@@ -39,15 +39,19 @@ check_sig()
 {
 if [ $1 -eq 142 ] ; then
 	echo -e "\033[60G\033[31;1mT${clear}\c"
+	ko=$(( $ko + 1 ))
 	return 0
 elif [ $1 -eq 134 ] ; then
 	echo -e "\033[60G\033[31;1mA${clear}\c"
+	ko=$(( $ko + 1 ))
 	return 0
 elif [ $1 -eq 139 ] ; then
 	echo -e "\033[60G\033[31;1mS${clear}\c"
+	ko=$(( $ko + 1 ))
 	return 0
 elif [ $1 -eq 138 ] ; then
 	echo -e "\033[60G\033[31;1mB${clear}\c"
+	ko=$(( $ko + 1 ))
 	return 0
 else
 	return 1
