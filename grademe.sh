@@ -30,7 +30,8 @@ echo -e "_______________________________________________________________________
 ### COMPILATION
 compil()
 {
-clang++ -Wall -Wextra -Werror -std=c++98 -I${INC_DIR} -DCONTAINER=$2 $1 -o $3 &> $4
+[ "$2" = "ft" ] && STL=0 || STL=1
+clang++ -Wall -Wextra -Werror -std=c++98 -I${INC_DIR} -DCONTAINER=$2 -DSTL=$STL $1 -o $3 &> $4
 }
 
 
@@ -83,14 +84,14 @@ for file in ${files}; do
 	filename=$(echo $file | rev | cut -d\/ -f1 | cut -d. -f2 | rev)
 	name="$1/${filename}"
 	echo -e "${filename}\c"
-	compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
+	compil "$file" ft "bin/${name}.ft" "log/${name}_compil.ft"
 	[[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[40G❌\c"; } || echo -e "\033[40G✅\c"
 	
-	run=$(./bin/${name}.ft >> "log/${name}.ft" 2> "log/${name}.ft")
+	run=$(./bin/${name}.ft &> "log/${name}.ft")
 	sig=$?
 	if ! check_sig $sig; then
-		compil "$file" std "bin/${name}.std" "log/${name}.std"
-		run=$( ./bin/${name}.std >> "log/${name}.std" 2> "log/${name}.std")
+		compil "$file" std "bin/${name}.std" "log/${name}_compil.std"
+		run=$( ./bin/${name}.std &> "log/${name}.std")
 		sig=$?
 		if ! check_sig $sig; then
 			diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
@@ -124,14 +125,14 @@ echo -e "\n\n${purple}[+] Testing ${vec}/${name}\033[40GCompilation\033[60GDiff\
 echo -e "${name}\c"
 
 name="${vec}/${name}"
-compil "$file" ft "bin/${name}.ft" "log/${name}.ft"
+compil "$file" ft "bin/${name}.ft" "log/${name}_compil.ft"
 [[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); echo -e "\033[40G❌\c"; } || echo -e "\033[40G✅\c"
 	
-run=$(./bin/${name}.ft >> "log/${name}.ft" 2> "log/${name}.ft")
+run=$(./bin/${name}.ft &> "log/${name}.ft")
 sig=$?
 if ! check_sig $sig; then
-	compil "$file" std "bin/${name}.std" "log/${name}.std"
-	run=$( ./bin/${name}.std >> "log/${name}.std" 2> "log/${name}.std")
+	compil "$file" std "bin/${name}.std" "log/${name}_compil.std"
+	run=$( ./bin/${name}.std &> "log/${name}.std")
 	sig=$?
 	if ! check_sig $sig; then
 		diff "log/${name}.ft" "log/${name}.std" &> "log/${name}.diff"
