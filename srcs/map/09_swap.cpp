@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/11/01 10:03:09 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/01 10:31:35 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	run( T map, T map2, std::string keyType, std::string valueType ) {
 	checkSize(map2, keyType, valueType);
 
 
-	std::swap(map, map2);
+	ft::swap(map, map2);
 
 	std::cout << "🔽 map AFTER swap back" << std::endl;
 	display(map, keyType, valueType);
