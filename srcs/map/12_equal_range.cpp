@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:44:16 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/31 18:42:37 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/01 18:52:19 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		main( void ) {
 		map2[arrayC[i]] = arrayS[i];
 
 	for (size_t i = 0; i < *(&arrayTest + 1) - arrayTest; i++)
-		run(map2, CHAR, INT, arrayTest[i]);
+		run(map2, CHAR, STR, arrayTest[i]);
 
 
 	return 0;
