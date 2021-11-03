@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 17:25:12 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/31 18:31:54 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/01 19:52:08 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	checkSize( T map, std::string keyType, std::string valueType ) {
 
 	std::cout << "[+] Testing size, max_size, empty" << std::endl;
 	std::cout << "map<" << keyType << ", " << valueType << "> size: " << map.size() << std::endl;
-	std::cout << "map<" << keyType << ", " << valueType << "> max_size: " << map.max_size() << std::endl;
+	std::cout << "map<" << keyType << ", " << valueType << "> max_size: " << (map.max_size() >= map.size() ? OK : KO) << std::endl;
 	std::cout << std::boolalpha << "is empty ? " << map.empty() << std::endl;
 
 	std::cout << std::endl;
