@@ -1,4 +1,4 @@
-# FT_CONTAINERS_CHECKER...
+# FT_CONTAINERS_CHECKER
 
 <p align="center">
 	<img src="./assets/ft_containers_checker.gif" >
